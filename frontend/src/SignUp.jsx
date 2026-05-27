@@ -2,10 +2,12 @@ import { useState } from 'react'
 import './MainPage.css'
 import eighth_sibu_logo from './assets/8th_sibu_logo.jpg'
 import { FiArrowLeft } from 'react-icons/fi'
+import { signup } from './api'
 
 function SignUp({ onLogin }) {
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
+  const [telephone, setTelephone ] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
@@ -25,13 +27,11 @@ function SignUp({ onLogin }) {
 
     setIsSubmitting(true)
     try {
-      // TODO: connect to auth API
-      await new Promise((resolve) => setTimeout(resolve, 600))
-      console.log('Sign up', { firstName, lastName, username, email, password })
+      await signup({ firstName, lastName, email, password })
       setSuccess('Account created! Redirecting to login…')
       setTimeout(() => onLogin?.(), 1200)
-    } catch {
-      setError('Sign up failed. Please try again.')
+    } catch (err) {
+      setError(err.message || 'Sign up failed. Please try again.')
     } finally {
       setIsSubmitting(false)
     }
@@ -85,6 +85,18 @@ function SignUp({ onLogin }) {
                 </label>
               </div>
             </div>
+            <label className="auth-field">
+              <h2 className="auth-field-label">Phone number</h2>
+              <input
+                type="tel"
+                name="telephone"
+                value={telephone}
+                onChange={(e) => setTelephone(e.target.value)}
+                placeholder="Phone number"
+                autoComplete="tel"
+                required
+              />
+            </label>
             <label className="auth-field">
               <h2 className="auth-field-label">Email address</h2>
               <input

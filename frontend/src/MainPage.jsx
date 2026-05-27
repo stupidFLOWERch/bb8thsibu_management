@@ -3,15 +3,27 @@ import './MainPage.css'
 import eighth_sibu_logo from './assets/8th_sibu_logo.jpg'
 import { FaFacebook, FaInstagram, FaWhatsapp, FaYoutube } from 'react-icons/fa'
 import { FiMapPin } from 'react-icons/fi'
+import { login } from './api'
 
 function MainPage({ onSignup }) {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [error, setError] = useState('')
+  const [isSubmitting, setIsSubmitting] = useState(false)
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault()
-    // TODO: connect to auth API
-    console.log('Login', { email, password })
+    setError('')
+    setIsSubmitting(true)
+    try {
+      await login({ email, password })
+      // TODO: store token and redirect to dashboard
+      console.log('Login successful', { email })
+    } catch (err) {
+      setError(err.message || 'Login failed. Please try again.')
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   return (
@@ -22,6 +34,7 @@ function MainPage({ onSignup }) {
         </div>
           <div className="auth-session">
             <h2> Log in to continue </h2>
+            {error && <p className="auth-message auth-message--error">{error}</p>}
             <form className="auth-form" onSubmit={handleLogin}>
               <label className="auth-field">
                 <input
@@ -46,8 +59,12 @@ function MainPage({ onSignup }) {
                 />
               </label>
               <div className="auth-actions">
-                <button type="submit" className="auth-btn auth-btn--primary">
-                  Login
+                <button
+                  type="submit"
+                  className="auth-btn auth-btn--primary"
+                  disabled={isSubmitting}
+                >
+                  {isSubmitting ? 'Logging in…' : 'Login'}
                 </button>
               </div>
               <div className="auth-actions">
