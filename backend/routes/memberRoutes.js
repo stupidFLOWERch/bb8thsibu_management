@@ -3,6 +3,6 @@ const { listMembers } = require("../controllers/memberController");
 
 const router = express.Router();
 
-router.get("/members", listMembers);
+router.get("/listMembers", listMembers);
 
 module.exports = router;

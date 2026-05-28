@@ -27,11 +27,13 @@ function SignUp({ onLogin }) {
 
     setIsSubmitting(true)
     try {
-      await signup({ firstName, lastName, email, password })
+      await signup({ firstName, lastName, telephone, email, password })
       setSuccess('Account created! Redirecting to login…')
       setTimeout(() => onLogin?.(), 1200)
     } catch (err) {
-      setError(err.message || 'Sign up failed. Please try again.')
+
+      setError(err.message || 'Sign up failed')
+      
     } finally {
       setIsSubmitting(false)
     }

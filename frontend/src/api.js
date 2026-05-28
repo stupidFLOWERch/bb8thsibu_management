@@ -22,15 +22,15 @@ export function checkHealth() {
   return request('/api/health')
 }
 
-export function signup({ firstName, lastName, email, password }) {
-  return request('/api/signup', {
+export function signup({ firstName, lastName, telephone, email, password }) {
+  return request('/api/auth/signup', {
     method: 'POST',
-    body: JSON.stringify({ firstName, lastName, email, password }),
+    body: JSON.stringify({ firstName, lastName, telephone, email, password }),
   })
 }
 
 export function login({ email, password }) {
-  return request('/api/login', {
+  return request('/api/auth/login', {
     method: 'POST',
     body: JSON.stringify({ email, password }),
   })
