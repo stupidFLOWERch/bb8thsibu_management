@@ -1,9 +1,9 @@
 import { useState } from 'react'
 import './MainPage.css'
-import eighth_sibu_logo from './assets/8th_sibu_logo.jpg'
+import eighth_sibu_logo from '../assets/8th_sibu_logo.jpg'
 import { FaFacebook, FaInstagram, FaWhatsapp, FaYoutube } from 'react-icons/fa'
 import { FiMapPin } from 'react-icons/fi'
-import { login } from './api'
+import { login } from '../api/auth'
 
 function MainPage({ onSignup }) {
   const [email, setEmail] = useState('')
@@ -68,7 +68,8 @@ function MainPage({ onSignup }) {
                 </button>
               </div>
               <div className="auth-actions">
-                <button type="button" className="auth-btn auth-btn--secondary">
+                <button type="button" className="auth-btn auth-btn--secondary" >
+                {/* onClick={onForgot} */}
                   Forgotten password?
                 </button>
               </div>

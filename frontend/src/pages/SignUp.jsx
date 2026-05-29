@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import './MainPage.css'
-import eighth_sibu_logo from './assets/8th_sibu_logo.jpg'
+import eighth_sibu_logo from '../assets/8th_sibu_logo.jpg'
 import { FiArrowLeft } from 'react-icons/fi'
-import { signup } from './api'
+import { signup } from '../api/auth'
 
 function SignUp({ onLogin }) {
   const [firstName, setFirstName] = useState('')

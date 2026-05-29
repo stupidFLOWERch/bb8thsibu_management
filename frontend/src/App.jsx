@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import MainPage from './MainPage.jsx'
-import SignUp from './SignUp.jsx'
+import MainPage from './pages/MainPage.jsx'
+import SignUp from './pages/SignUp.jsx'
 
 function App() {
   const [page, setPage] = useState('login')
@@ -9,7 +9,17 @@ function App() {
     return <SignUp onLogin={() => setPage('login')} />
   }
 
-  return <MainPage onSignup={() => setPage('signup')} />
+  // if (page === 'forgot'){
+  //   return <ForgotPasswordPage onLogin={() => setPage('login')} />
+  // }
+
+  return (
+    <MainPage
+    onSignup={() => setPage('signup')}
+    // onForgot={() => setPage('forgot')}
+  />
+  )
+    
 }
 
 export default App
