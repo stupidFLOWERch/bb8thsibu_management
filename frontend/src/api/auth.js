@@ -35,3 +35,10 @@ export function login({ email, password }) {
     body: JSON.stringify({ email, password }),
   })
 }
+
+export function forgotPassword({ email }) {
+  return request('/api/auth/forgot-password', {
+    method: 'POST',
+    body: JSON.stringify({ email }),
+  });
+}

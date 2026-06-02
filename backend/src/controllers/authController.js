@@ -1,6 +1,10 @@
+const crypto = require("crypto");
 const { findUserByEmail, getPasswordByEmail, createUser } = require("../models/userModel");
 const { findMember } = require("../models/memberModel");
+const { saveResetToken } = require("../models/userModel");
+const { Resend } = require("resend");
 
+const resend = new Resend(process.env.RESEND_API_KEY);
 async function signup(req, res) {
     const { firstName, lastName, telephone, email, password } = req.body;
 
@@ -53,4 +57,50 @@ async function login(req, res) {
     return res.status(401).json({ error: "Email and password does not match" });
 }
 
-module.exports = { signup, login };
+async function forgotPassword(req, res) {
+    const { email } = req.body;
+
+    if (!email) {
+        return res.status(400).json({ error: "Email is required." });
+    }
+
+    const existing = await findUserByEmail(email);
+    if (!existing) {
+        return res.status(200).json({
+            message: "If the email exists, a reset link has been sent."
+          });
+    }
+
+    // 1. generate token
+    const token = crypto.randomBytes(32).toString("hex");
+
+    // 2. expiry (15 mins)
+    const expires = Date.now() + 15 * 60 * 1000;
+
+    // 3. save token to DB
+    await saveResetToken(email, token, expires);
+
+    // 4. create magic link
+    const resetLink = `http://localhost:5173/reset-password/${token}`;
+
+    // 5. send email
+    await resend.emails.send({
+        from: "onboarding@resend.dev",
+        to: email,
+        subject: "Reset your password",
+        html: `
+            <h2>Password Reset Request</h2>
+            <p>Click the link below to reset your password:</p>
+            <a href="${resetLink}">
+                Reset Password
+            </a>
+            <p>This link will expire in 15 minutes.</p>
+        `
+    });
+    
+    return res.status(200).json({
+        message: "If the email exists, a reset link has been sent."
+    });
+}
+
+module.exports = { signup, login, forgotPassword };

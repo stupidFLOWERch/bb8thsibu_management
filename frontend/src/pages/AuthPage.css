@@ -405,3 +405,7 @@
     border-right-color: var(--border);
   }
 }
+
+.mb-3 {
+  margin-bottom: 16px;
+}

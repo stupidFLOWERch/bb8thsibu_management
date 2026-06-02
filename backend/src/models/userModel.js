@@ -40,4 +40,8 @@ async function createUser(firstName, lastName, email, password) {
         `);
 }
 
-module.exports = { findUserByEmail, getPasswordByEmail, createUser };
+async function saveResetToken(email, token, expires) {
+    // DB update logic here
+}
+
+module.exports = { findUserByEmail, getPasswordByEmail, createUser, saveResetToken };
