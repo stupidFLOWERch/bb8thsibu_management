@@ -1,28 +1,26 @@
-import { useState } from 'react'
-import MainPage from './pages/MainPage.jsx'
-import SignUp from './pages/SignUp.jsx'
-import ForgotPassword from './pages/ForgotPassword.jsx'
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+
+import MainPage from "./pages/MainPage.jsx";
+import SignUp from "./pages/SignUp.jsx";
+import ForgotPassword from "./pages/ForgotPassword.jsx";
+import ResetPassword from "./pages/ResetPassword.jsx";
 
 function App() {
-  const [page, setPage] = useState('login')
-
-  if (page === 'signup') {
-    return <SignUp onLogin={() => setPage('login')} />
-  }
-
-  if (page === 'forgot') {
-    return (
-      <ForgotPassword onLogin={() => setPage('login')} />
-    )
-  }
-
   return (
-    <MainPage
-    onSignup={() => setPage('signup')}
-    onForgot={() => setPage('forgot')}
-  />
-  )
-    
+    <BrowserRouter>
+      <Routes>
+
+        <Route path="/" element={<MainPage />} />
+
+        <Route path="/signup" element={<SignUp />} />
+
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+
+        <Route path="/reset-password/:token" element={<ResetPassword />} />
+
+      </Routes>
+    </BrowserRouter>
+  );
 }
 
-export default App
+export default App;

@@ -1,55 +1,56 @@
-import { useState } from 'react'
-import './AuthPage.css'
-import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import { resetPassword } from "../api/auth";
+import BackButton from "../components/BackButton";
+import Logo from "../components/Logo";
 
-import { forgotPassword } from '../api/auth'
-
-import Logo from '../components/Logo'
-import BackButton from '../components/BackButton'
-
-function ForgotPassword() {
+function ResetPassword() {
+  const { token } = useParams();
   const navigate = useNavigate();
-  
-  const [email, setEmail] = useState('')
-  const [message, setMessage] = useState('')
-  const [error, setError] = useState('')
-  const [isSubmitting, setIsSubmitting] = useState(false)
+
+  const [password, setPassword] = useState("");
+  const [message, setMessage] = useState("");
+  const [error, setError] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
 
-    setError('')
-    setMessage('')
-    setIsSubmitting(true)
+    setError("");
+    setMessage("");
+    setIsSubmitting(true);
 
     try {
-      const res = await forgotPassword({ email })
+      const res = await resetPassword({ token, password });
 
-      console.log('Reset password request:', email)
+      setMessage("Password reset successful. You can close this tab.");
 
-      setMessage(res.message)
+      setTimeout(() => {
+        navigate("/");
+      }, 3000);
 
     } catch (err) {
-      setError(err.message || 'Something went wrong.')
+      setError(err.message);
     } finally {
-      setIsSubmitting(false)
+      setIsSubmitting(false);
     }
-  }
+  };
 
   return (
     <div className="signup-page">
+
       <header className="signup-header">
-        <BackButton onClick={() => navigate("/")} />
+        <BackButton />
       </header>
 
       <section id="center">
         <Logo />
 
         <div className="auth-session">
-          <h2>Forgot your password? </h2>
+          <h2>Reset your password</h2>
 
           <p className="mb-3">
-            Enter your email address and we'll send you a link to reset password.
+            Enter your new password below.
           </p>
 
           {error && (
@@ -66,17 +67,13 @@ function ForgotPassword() {
 
           <form className="auth-form" onSubmit={handleSubmit}>
             <label className="auth-field">
-              <h2 className="auth-field-label">
-                Email address
-              </h2>
+              <span>New password</span>
 
               <input
-                type="email"
-                name="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="Enter your email"
-                autoComplete="email"
+                type="password"
+                placeholder="Enter new password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
                 required
               />
             </label>
@@ -87,15 +84,12 @@ function ForgotPassword() {
                 className="auth-btn auth-btn--primary"
                 disabled={isSubmitting}
               >
-                {isSubmitting
-                  ? 'Sending reset link…'
-                  : 'Send reset link'}
+                {isSubmitting ? "Resetting..." : "Reset Password"}
               </button>
             </div>
 
             <div className="auth-session-signup">
-              Remember your password?{' '}
-
+              Remembered your password?{" "}
               <button
                 type="button"
                 className="auth-link"
@@ -104,6 +98,7 @@ function ForgotPassword() {
                 Back to login
               </button>
             </div>
+
           </form>
         </div>
       </section>
@@ -112,7 +107,7 @@ function ForgotPassword() {
 
       <section id="spacer"></section>
     </div>
-  )
+  );
 }
 
-export default ForgotPassword
+export default ResetPassword;

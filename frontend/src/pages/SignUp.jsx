@@ -1,12 +1,15 @@
 import { useState } from 'react'
 import './AuthPage.css'
+import { useNavigate } from "react-router-dom";
 
 import { signup } from '../api/auth'
 
 import Logo from '../components/Logo'
 import BackButton from '../components/BackButton'
 
-function SignUp({ onLogin }) {
+function SignUp() {
+  const navigate = useNavigate();
+  
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
   const [telephone, setTelephone ] = useState('')
@@ -31,7 +34,9 @@ function SignUp({ onLogin }) {
     try {
       await signup({ firstName, lastName, telephone, email, password })
       setSuccess('Account created! Redirecting to login…')
-      setTimeout(() => onLogin?.(), 1200)
+      setTimeout(() => {
+        navigate("/");
+      }, 1200);
     } catch (err) {
 
       setError(err.message || 'Sign up failed')
@@ -44,7 +49,7 @@ function SignUp({ onLogin }) {
   return (
     <div className="signup-page">
       <header className="signup-header">
-        <BackButton onClick={onLogin} />
+        <BackButton onClick={() => navigate("/")} />
       </header>
       <section id="center">
         <Logo />
@@ -164,7 +169,7 @@ function SignUp({ onLogin }) {
             <button
               type="button"
               className="auth-link"
-              onClick={onLogin}
+              onClick={() => navigate("/")}
             >
               Log in
             </button>

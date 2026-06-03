@@ -42,3 +42,10 @@ export function forgotPassword({ email }) {
     body: JSON.stringify({ email }),
   });
 }
+
+export function resetPassword({ token, password }) {
+  return request('/api/auth/reset-password', {
+    method: 'POST',
+    body: JSON.stringify({ token, password }),
+  });
+}

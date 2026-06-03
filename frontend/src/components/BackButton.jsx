@@ -1,11 +1,13 @@
 import { FiArrowLeft } from 'react-icons/fi'
+import { useNavigate } from "react-router-dom";
 
-function BackButton({ onClick }) {
+function BackButton() {
+  const navigate = useNavigate();
   return (
     <button
       type="button"
       className="back-btn"
-      onClick={onClick}
+      onClick={() => navigate("/")}
       aria-label="Back"
     >
       <FiArrowLeft

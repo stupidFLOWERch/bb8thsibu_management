@@ -1,7 +1,6 @@
 const crypto = require("crypto");
-const { findUserByEmail, getPasswordByEmail, createUser } = require("../models/userModel");
+const { findUserByEmail, getPasswordByEmail, createUser, saveResetToken, findUserByResetToken, updateUserPassword, deleteTokenByToken } = require("../models/userModel");
 const { findMember } = require("../models/memberModel");
-const { saveResetToken } = require("../models/userModel");
 const { Resend } = require("resend");
 
 const resend = new Resend(process.env.RESEND_API_KEY);
@@ -58,6 +57,7 @@ async function login(req, res) {
 }
 
 async function forgotPassword(req, res) {
+    
     const { email } = req.body;
 
     if (!email) {
@@ -71,6 +71,8 @@ async function forgotPassword(req, res) {
           });
     }
 
+    const userId = existing.Id;
+
     // 1. generate token
     const token = crypto.randomBytes(32).toString("hex");
 
@@ -78,29 +80,61 @@ async function forgotPassword(req, res) {
     const expires = Date.now() + 15 * 60 * 1000;
 
     // 3. save token to DB
-    await saveResetToken(email, token, expires);
+    await saveResetToken(userId, token, expires);
 
     // 4. create magic link
     const resetLink = `http://localhost:5173/reset-password/${token}`;
 
     // 5. send email
-    await resend.emails.send({
-        from: "onboarding@resend.dev",
-        to: email,
-        subject: "Reset your password",
-        html: `
-            <h2>Password Reset Request</h2>
-            <p>Click the link below to reset your password:</p>
-            <a href="${resetLink}">
-                Reset Password
-            </a>
-            <p>This link will expire in 15 minutes.</p>
-        `
-    });
+    console.log("📧 about to send email");
+
+try {
+  const result = await resend.emails.send({
+    from: "onboarding@resend.dev",
+    to: email,
+    subject: "Reset your password",
+    html: `
+      <h2>Password Reset Request</h2>
+      <p>Click the link below to reset your password:</p>
+      <a href="${resetLink}">
+        Reset Password
+      </a>
+      <p>This link will expire in 15 minutes.</p>
+    `
+  });
+
+  console.log("📧 email sent:", result);
+
+} catch (err) {
+  console.error("❌ email failed:", err);
+}
     
     return res.status(200).json({
         message: "If the email exists, a reset link has been sent."
     });
 }
 
-module.exports = { signup, login, forgotPassword };
+async function resetPassword(req, res){
+    const { token, password } = req.body;
+    if (!token || !password) {
+        return res.status(400).json({ error: "Token and password are required." });
+    }
+
+    const record = await findUserByResetToken(token)
+    if (!record){
+        return res.status(400).json({ error: "Invalid token" });
+    }
+
+    if (Date.now() > record.ExpiresAt) {
+        return res.status(400).json({ error: "Token expired" });
+    }
+
+    await updateUserPassword(record.UserId, password);
+    await deleteTokenByToken(token);
+
+    return res.status(200).json({
+        message: "Password reset successful"
+    });
+}
+
+module.exports = { signup, login, forgotPassword, resetPassword };

@@ -4,8 +4,11 @@ import Logo from '../components/Logo'
 import { FaFacebook, FaInstagram, FaWhatsapp, FaYoutube } from 'react-icons/fa'
 import { FiMapPin } from 'react-icons/fi'
 import { login } from '../api/auth'
+import { useNavigate } from "react-router-dom";
 
-function MainPage({ onSignup, onForgot }) {
+function MainPage() {
+  const navigate = useNavigate();
+  
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
@@ -79,7 +82,7 @@ function MainPage({ onSignup, onForgot }) {
               <button
                 type="button"
                 className="auth-btn auth-btn--secondary"
-                onClick={onForgot}
+                onClick={() => navigate("/forgot-password")}
               >
                 Forgotten password?
               </button>
@@ -91,7 +94,7 @@ function MainPage({ onSignup, onForgot }) {
             <button
               type="button"
               className="auth-link"
-              onClick={onSignup}
+              onClick={() => navigate("/signup")}
             >
               Sign up
             </button>
