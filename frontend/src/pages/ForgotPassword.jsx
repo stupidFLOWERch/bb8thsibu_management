@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import './AuthPage.css'
+import '../styles/AuthPage.css'
 import { useNavigate } from "react-router-dom";
 
 import { forgotPassword } from '../api/auth'

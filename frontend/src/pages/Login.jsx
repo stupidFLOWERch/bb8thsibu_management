@@ -1,12 +1,12 @@
 import { useState } from 'react'
-import './AuthPage.css'
+import '../styles/AuthPage.css'
 import Logo from '../components/Logo'
 import { FaFacebook, FaInstagram, FaWhatsapp, FaYoutube } from 'react-icons/fa'
 import { FiMapPin } from 'react-icons/fi'
 import { login } from '../api/auth'
 import { useNavigate } from "react-router-dom";
 
-function MainPage() {
+function Login() {
   const navigate = useNavigate();
   
   const [email, setEmail] = useState('')
@@ -21,7 +21,8 @@ function MainPage() {
 
     try {
       await login({ email, password })
-      console.log('Login successful', { email })
+      navigate('/menu')
+
     } catch (err) {
       setError(err.message || 'Login failed. Please try again.')
     } finally {
@@ -194,4 +195,4 @@ function MainPage() {
   )
 }
 
-export default MainPage
+export default Login

@@ -1,4 +1,5 @@
 import eighth_sibu_logo from '../assets/8th_sibu_logo.jpg'
+import './Logo.css'
 
 function Logo() {
   return (
@@ -8,6 +9,7 @@ function Logo() {
         alt="logo"
         width="170"
         height="179"
+        className="logo-img"
       />
     </div>
   )

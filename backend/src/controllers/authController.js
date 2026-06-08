@@ -45,8 +45,9 @@ async function login(req, res) {
     const record = await getPasswordByEmail(email);
 
     if(!record){
-        return res.status(404).json({ 
-            error: "User does not exists"});
+        return res.status(401).json({
+            error: "Invalid email or password"
+        });
     }
     
     if (record.Passwords === password){

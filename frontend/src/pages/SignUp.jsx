@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import './AuthPage.css'
+import '../styles/AuthPage.css'
 import { useNavigate } from "react-router-dom";
 
 import { signup } from '../api/auth'
@@ -49,7 +49,7 @@ function SignUp() {
   return (
     <div className="signup-page">
       <header className="signup-header">
-        <BackButton onClick={() => navigate("/")} />
+        <BackButton/>
       </header>
       <section id="center">
         <Logo />
