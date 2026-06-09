@@ -1,6 +1,7 @@
-import './MenuCard.css'
+import './Card.css'
 
 function MenuCard({ icon: Icon, title, onClick }) {
+
     return (
       <div className="menu-card" onClick={onClick}>
         <Icon className="menu-icon" />

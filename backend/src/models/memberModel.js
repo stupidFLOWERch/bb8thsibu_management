@@ -18,4 +18,16 @@ async function findMember(firstName, lastName, telephone) {
     return result.recordset[0];
 }
 
-module.exports = { findMember };
+async function getAllMembers() {
+    const request = new sql.Request();
+
+    const result = await request
+        .query(`
+            SELECT * FROM Members
+        `);
+
+    return result.recordset;
+
+}
+
+module.exports = { findMember, getAllMembers };

@@ -1,0 +1,14 @@
+.submit-btn {
+    margin-top: 20px;
+    padding: 12px 20px;
+    background: #2d6cdf;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  .submit-btn:hover {
+    background: #1b4fb3;
+  }

@@ -5,6 +5,7 @@ import SignUp from "./pages/SignUp.jsx";
 import ForgotPassword from "./pages/ForgotPassword.jsx";
 import ResetPassword from "./pages/ResetPassword.jsx";
 import MainMenu from "./pages/MainMenu.jsx";
+import ShowInventory from "./pages/ShowInventory.jsx";
 
 import AuthLayout from "./layouts/AuthLayout"
 import AppLayout from "./layouts/AppLayout"
@@ -23,6 +24,8 @@ function App() {
         <Route path="/reset-password/:token" element={<AuthLayout><ResetPassword /></AuthLayout>} />
 
         <Route path="/menu" element={<AppLayout><MainMenu /></AppLayout>} />
+
+        <Route path="/inventory" element={<AppLayout><ShowInventory /></AppLayout>} />
 
       </Routes>
     </BrowserRouter>
