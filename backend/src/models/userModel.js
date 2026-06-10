@@ -19,7 +19,8 @@ async function getPasswordByEmail(email) {
     const result = await request
         .input("email", sql.NVarChar, email)
         .query(`
-            SELECT Passwords FROM Users
+            SELECT Id, Email, Passwords
+            FROM Users
             WHERE Email = @email
         `);
 

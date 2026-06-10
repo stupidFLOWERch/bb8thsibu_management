@@ -25,9 +25,9 @@ export function showInventory() {
     });
   }
 
-// export function orderInventory() {
-//     return request('/api/inventory/order-inventory', {
-//       method: 'POST',
-//       body: JSON.stringify({ number }),
-//     })
-//   }
+export function orderInventory(orderData) {
+  return request('/api/inventory/order-inventory', {
+    method: 'POST',
+    body: JSON.stringify(orderData),
+  });
+}

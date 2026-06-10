@@ -51,7 +51,13 @@ async function login(req, res) {
     }
     
     if (record.Passwords === password){
-        return res.json({ message: "Login successful." });
+        return res.json({
+            message: "Login successful.",
+            user: {
+                userId: record.Id,
+                email: record.Email
+            }
+        });
     }
 
     return res.status(401).json({ error: "Email and password does not match" });

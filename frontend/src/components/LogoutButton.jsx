@@ -3,12 +3,22 @@ import { useNavigate } from "react-router-dom";
 
 function LogoutButton() {
   const navigate = useNavigate();
+
+  const handleLogout = () => {
+    const confirmLogout = window.confirm("Are you sure you want to logout?");
+
+    if (!confirmLogout) return;
+
+    localStorage.removeItem("user");
+    navigate("/");
+  };
+
   return (
     <button
       type="button"
       className="btn"
-      onClick={() => navigate("/")}
-      aria-label="Back"
+      onClick={handleLogout}
+      aria-label="Logout"
     >
       <FaSignOutAlt
         className="btn__icon"

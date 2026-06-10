@@ -1,4 +1,4 @@
-const { getAllInventory } = require("../models/inventoryModel");
+const { getAllInventory, createOrder, createOrderItem } = require("../models/inventoryModel");
 
 async function listInventory(req, res) {
   const data = await getAllInventory();

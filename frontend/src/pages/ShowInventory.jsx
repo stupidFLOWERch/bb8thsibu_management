@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import TopBar from '../components/TopBar';
 import InventoryCard from '../components/InventoryCard';
 import '../styles/ShowInventory.css'
-import { showInventory } from '../api/inventory';
+import { showInventory, orderInventory } from '../api/inventory';
 
 function ShowInventory() {
   const [items, setItems] = useState([]);
@@ -43,52 +43,43 @@ function ShowInventory() {
     );
   };
 
-  // const handleSubmitOrder = async () => {
-  //   const orderItems = items
-  //     .filter(item => item.orderQty > 0)
-  //     .map(item => ({
-  //       itemId: item.id,
-  //       qty: item.orderQty
-  //     }));
+  const handleSubmitOrder = async () => {
+    const orderItems = items
+      .filter(item => item.orderQty > 0)
+      .map(item => ({
+        itemId: item.id,
+        qty: item.orderQty
+      }));
   
-  //   if (orderItems.length === 0) {
-  //     alert("No items selected");
-  //     return;
-  //   }
+    if (orderItems.length === 0) {
+      alert("No items selected");
+      return;
+    }
   
-  //   try {
-  //     const res = await fetch("http://localhost:5000/api/orders/place-order", {
-  //       method: "POST",
-  //       headers: {
-  //         "Content-Type": "application/json"
-  //       },
-  //       body: JSON.stringify({
-  //         userId: 1,
-  //         items: orderItems
-  //       })
-  //     });
+    try {
+      const user = JSON.parse(localStorage.getItem("user"));
+
+      const data = await orderInventory({
+        userId: user.userId,
+        items: orderItems
+      });
   
-  //     const data = await res.json();
+      console.log(data);
   
-  //     if (!res.ok) {
-  //       throw new Error(data.error);
-  //     }
+      alert("Order placed successfully!");
   
-  //     alert("Order placed successfully!");
+      setItems(prev =>
+        prev.map(item => ({
+          ...item,
+          orderQty: 0
+        }))
+      );
   
-  //     // reset qty
-  //     setItems(prev =>
-  //       prev.map(item => ({
-  //         ...item,
-  //         orderQty: 0
-  //       }))
-  //     );
-  
-  //   } catch (err) {
-  //     console.error(err);
-  //     alert("Order failed: " + err.message);
-  //   }
-  // };
+    } catch (err) {
+      console.error(err);
+      alert("Order failed: " + err.message);
+    }
+  };
 
   return (
     <div className="menu-page">
@@ -105,9 +96,17 @@ function ShowInventory() {
         ))}
       </div>
 
-      <button className="submit-btn" onClick={handleSubmitOrder}>
-        Submit Order
-      </button>
+      <div className="checkout-bar">
+        <div className="checkout-inner">
+          <div className="checkout-left">
+            Total Items: {items.reduce((sum, i) => sum + i.orderQty, 0)}
+          </div>
+
+          <button className="checkout-btn" onClick={handleSubmitOrder}>
+            Submit Order
+          </button>
+        </div>
+      </div>
     </div>
   );
 }

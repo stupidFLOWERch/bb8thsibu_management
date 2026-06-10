@@ -1,81 +1,49 @@
 .menu-page {
-    min-height: 100vh;
-    padding: 40px;
-    background: #f7f8fa;
-  }
- 
-  .menu-header {
-    text-align: center;
-    margin-bottom: 40px;
-  }
-  
-  .menu-header h1 {
-    margin-bottom: 8px;
-  }
-  
-  .menu-header p {
-    color: #666;
-  }
-  
-  .menu-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: 24px;
-    max-width: 900px;
-    margin: 0 auto;
-  }
-  
-  .menu-card {
-    background: white;
-    border-radius: 16px;
-    padding: 40px;
-    text-align: center;
-    cursor: pointer;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
-  
-    transition: all 0.25s ease;
-  }
-  
-  .menu-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
-  }
-  
-  .menu-icon {
-    font-size: 48px;
-    margin-bottom: 16px;
-  }
-  
-  .menu-card h3 {
-    margin: 0;
-  }
-
-  .inventory-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 16px;
-  }
-
-  .inventory-card {
-    width: 200px;
-  }
-
-  .qty-controls {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-
-  margin-top: 12px;
+  min-height: 100vh;
+  padding: 40px;
+  padding-bottom: 100px; /* 给 checkout bar 留空间 */
+  background: #f7f8fa;
 }
 
+/* =========================
+   GRID LAYOUT
+========================= */
+.inventory-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 16px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+/* =========================
+   CARD LAYOUT
+========================= */
+.inventory-card {
+  background: white;
+  border-radius: 12px;
+  padding: 12px;
+
+  display: flex;
+  flex-direction: column;
+
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+
+/* =========================
+   IMAGE
+========================= */
 .img-wrapper {
-  width: 85%;
+  width: 100%;
   height: 140px;
+  margin-bottom: 10px;
+
   display: flex;
   justify-content: center;
   align-items: center;
+
   overflow: hidden;
-  border-radius: 12px;
+  border-radius: 10px;
   background: #f3f3f3;
 }
 
@@ -85,3 +53,116 @@
   object-fit: cover;
 }
 
+/* =========================
+   TEXT (NAME + STOCK)
+========================= */
+.inventory-card h3 {
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.2;
+}
+
+.inventory-card {
+  background: white;
+  border-radius: 12px;
+  padding: 12px;
+
+  display: flex;
+  flex-direction: column;
+
+  width: 200px;     /* 👈 固定宽度 */
+  height: 320px;    /* 👈 固定高度（关键） */
+
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+
+  overflow: hidden; /* 防止内容爆出 */
+}
+
+.inventory-card p {
+  margin: 2px 0 6px 0;
+  color: #666;
+  font-size: 13px;
+  line-height: 1.2;
+}
+
+/* =========================
+   QTY CONTROLS
+========================= */
+.qty-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 8px;
+  margin-top: 10px;
+}
+
+/* buttons */
+.qty-controls button {
+  width: 28px;
+  height: 28px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  border: 1px solid #ddd;
+  background: white;
+  border-radius: 6px;
+
+  cursor: pointer;
+  font-size: 16px;
+}
+
+/* number */
+.qty-controls span {
+  min-width: 20px;
+  text-align: center;
+}
+
+/* hover */
+.qty-controls button:hover {
+  background: #f0f0f0;
+}
+
+/* =========================
+   CHECKOUT BAR
+========================= */
+.checkout-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+
+  background: white;
+  border-top: 1px solid #ddd;
+  box-shadow: 0 -2px 10px rgba(0,0,0,0.08);
+
+  padding: 12px 0;
+  z-index: 1000;
+}
+
+.checkout-inner {
+  max-width: 900px;
+  margin: 0 auto;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 0 24px;
+}
+
+.checkout-btn {
+  padding: 10px 18px;
+  background: #2d6cdf;
+  color: white;
+  border: none;
+  border-radius: 8px;
+
+  cursor: pointer;
+}
+
+.checkout-btn:hover {
+  background: #1b4fb3;
+}

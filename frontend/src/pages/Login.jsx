@@ -20,8 +20,14 @@ function Login() {
     setIsSubmitting(true)
 
     try {
-      await login({ email, password })
-      navigate('/menu')
+      const data = await login({ email, password });
+
+      localStorage.setItem(
+        "user", 
+        JSON.stringify(data.user)
+      );
+      //console.log(data);
+      navigate("/menu");
 
     } catch (err) {
       setError(err.message || 'Login failed. Please try again.')
