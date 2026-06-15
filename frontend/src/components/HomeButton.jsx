@@ -1,21 +1,45 @@
 import { useNavigate } from "react-router-dom";
-import { FaHome } from 'react-icons/fa'
+import { FaHome } from "react-icons/fa";
 
 function HomeButton() {
-    const navigate = useNavigate();
-    return (
-      <button
-        type="button"
-        className="btn"
-        onClick={() => navigate("/menu")}
-        aria-label="Back"
-      >
-        <FaHome
-          className="btn__icon"
-          aria-hidden="true"
-        />
-      </button>
-    )
-  }
-  
-  export default HomeButton
+  const navigate = useNavigate();
+
+  const handleHome = () => {
+    const user = JSON.parse(localStorage.getItem("user"));
+
+    if (!user) {
+      navigate("/");
+      return;
+    }
+    if (user.role === "Boys") {
+      if (user.rank === "Pte") {
+        navigate("/menu");
+      }
+      else{
+        navigate("/nco-menu");
+      }
+    } 
+    else if (user.role === "Officer") {
+      navigate("/officer-menu");
+    } 
+    else {
+      navigate("/");
+    }
+  };
+
+  return (
+    <button
+      type="button"
+      className="btn"
+      onClick={handleHome}
+      aria-label="Home"
+    >
+      <FaHome
+        className="btn__icon"
+        aria-hidden="true"
+      />
+    </button>
+  );
+}
+
+export default HomeButton;

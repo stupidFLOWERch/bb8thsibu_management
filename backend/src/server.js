@@ -10,6 +10,7 @@ const authRoutes = require("./routes/authRoutes");
 const healthRoutes = require("./routes/healthRoutes");
 const memberRoutes = require("./routes/memberRoutes");
 const inventoryRoutes = require("./routes/inventoryRoutes");
+const attendanceRoutes = require("./routes/attendanceRoutes");
 
 const app = express();
 const PORT = 5000;
@@ -24,6 +25,7 @@ app.use("/api/auth", authRoutes);
 app.use("/api", healthRoutes);
 app.use("/api/members", memberRoutes);
 app.use("/api/inventory", inventoryRoutes)
+app.use("/api/attendance", attendanceRoutes)
 
 async function start() {
     try {

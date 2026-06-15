@@ -4,6 +4,7 @@ import Logo from '../components/Logo'
 import { FaFacebook, FaInstagram, FaWhatsapp, FaYoutube } from 'react-icons/fa'
 import { FiMapPin } from 'react-icons/fi'
 import { login } from '../api/auth'
+import { getMemberRanking } from '../api/member'
 import { useNavigate } from "react-router-dom";
 
 function Login() {
@@ -21,13 +22,29 @@ function Login() {
 
     try {
       const data = await login({ email, password });
+      const ranking = await getMemberRanking(email)
 
       localStorage.setItem(
-        "user", 
-        JSON.stringify(data.user)
+        "user",
+        JSON.stringify({
+          ...data.user,
+          rank: ranking.rank,
+          role: ranking.role
+        })
       );
-      //console.log(data);
-      navigate("/menu");
+
+      if (ranking.role === "Boys"){
+        if (ranking.rank === "Pte"){
+          navigate("/menu");
+        }
+
+        else {
+          navigate("/nco-menu");
+        }
+      }
+      
+      
+      
 
     } catch (err) {
       setError(err.message || 'Login failed. Please try again.')

@@ -1,0 +1,61 @@
+.menu-page {
+    padding: 20px;
+    background: #f5f6f8;
+    min-height: 100vh;
+  }
+  
+  /* container */
+  .attendance-container {
+    max-width: 900px;
+    margin: 20px auto;
+  }
+  
+  /* squad card */
+  .squad-card {
+    background: white;
+    border-radius: 12px;
+    margin-bottom: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+  }
+  
+  /* header */
+  .squad-header {
+    padding: 14px 16px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #ffffff;
+    border-bottom: 1px solid #eee;
+  }
+  
+  .squad-header:hover {
+    background: #f0f2f5;
+  }
+  
+  /* member list */
+  .member-list {
+    padding: 10px 16px;
+    background: #fafafa;
+  }
+  
+  .member-item {
+    padding: 8px 0;
+    border-bottom: 1px solid #eee;
+    font-size: 14px;
+  }
+  
+  .member-item:last-child {
+    border-bottom: none;
+  }
+  
+  /* arrow */
+  .arrow {
+    transition: 0.2s;
+  }
+  
+  .arrow.open {
+    transform: rotate(90deg);
+  }

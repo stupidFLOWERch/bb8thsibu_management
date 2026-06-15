@@ -2,9 +2,9 @@ import TopBar from '../components/TopBar'
 import MenuCard from '../components/MenuCard'
 import { useNavigate } from "react-router-dom";
 
-import { FaBell, FaBoxOpen } from 'react-icons/fa'
+import { FaBell, FaBoxOpen, FaClipboardCheck } from 'react-icons/fa'
 
-function MainMenu() {
+function MainMenu_NCO() {
   const navigate = useNavigate();
 
   return (
@@ -15,9 +15,11 @@ function MainMenu() {
         <MenuCard icon={FaBell} title="Notification" />
 
         <MenuCard icon={FaBoxOpen} title="Order Inventory" onClick={() => navigate("/inventory")}/>
+
+        <MenuCard icon={FaClipboardCheck} title="Attendance" onClick={() => navigate("/attendance")}/>
       </div>
     </div>
   )
 }
 
-export default MainMenu
+export default MainMenu_NCO

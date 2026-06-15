@@ -10,6 +10,7 @@ function LogoutButton() {
     if (!confirmLogout) return;
 
     localStorage.removeItem("user");
+    localStorage.removeItem("member");
     navigate("/");
   };
 
