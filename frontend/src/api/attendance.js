@@ -18,9 +18,16 @@ async function request(path, options = {}) {
   return data
 }
 
-// GET inventory
+
 export function showMemberBySquad() {
     return request('/api/attendance/show-member-squad', {
       method: 'GET',
+    });
+  }
+
+  export function submitAttendance(payload) {
+    return request('/api/attendance/submit', {
+      method: 'POST',
+      body: JSON.stringify(payload)
     });
   }

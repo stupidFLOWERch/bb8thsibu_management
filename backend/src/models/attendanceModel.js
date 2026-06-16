@@ -11,22 +11,16 @@ async function getAllMembers() {
     return result.recordset;
 }
 
-async function takeAttendance(memberId) {
-    try {
-        const request = new sql.Request();
+async function takeAttendance(memberId, status) {
+    const request = new sql.Request();
 
-        const result = await request
-            .input("memberId", sql.Int, memberId)
-            .query(`
-                INSERT INTO Attendance (MemberId, Status, Date)
-                VALUES (@memberId, 'Present', GETDATE())
-            `);
-
-        return result.rowsAffected;
-
-    } catch (err) {
-        throw err;
-    }
+    await request
+        .input("memberId", sql.Int, memberId)
+        .input("status", sql.VarChar, status)
+        .query(`
+            INSERT INTO Attendance (Member_id, Attendance_date, Status )
+            VALUES (@memberId, GETDATE(), @status)
+        `);
 }
 
 

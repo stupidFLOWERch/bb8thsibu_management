@@ -1,4 +1,4 @@
-const { getAllMembers } = require("../models/attendanceModel");
+const { getAllMembers, takeAttendance } = require("../models/attendanceModel");
 
 async function showMemberBySquad(req, res) {
     try {
@@ -28,4 +28,25 @@ async function showMemberBySquad(req, res) {
     }
 }
 
-module.exports = { showMemberBySquad };
+async function submitAttendance(req, res) {
+    try {
+      const payload  = req.body;
+  
+      for (const item of payload) {
+        await takeAttendance(item.memberId, item.status);
+      }
+  
+      return res.json({
+        success: true,
+        message: "Attendance saved",
+      });
+  
+    } catch (err) {
+      return res.status(500).json({
+        success: false,
+        error: err.message,
+      });
+    }
+  }
+
+module.exports = { showMemberBySquad, submitAttendance};

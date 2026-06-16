@@ -59,3 +59,42 @@
   .arrow.open {
     transform: rotate(90deg);
   }
+
+  /* ===== Member Row ===== */
+
+.member-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 4px;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.member-item:last-child {
+  border-bottom: none;
+}
+
+/* ===== Checkbox ===== */
+
+.checkbox-label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.checkbox-label input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+
+.submit-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 24px;
+}
+
