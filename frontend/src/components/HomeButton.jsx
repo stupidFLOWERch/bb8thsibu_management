@@ -19,8 +19,14 @@ function HomeButton() {
         navigate("/nco-menu");
       }
     } 
-    else if (user.role === "Officer") {
-      navigate("/officer-menu");
+    else if (user.role === "Officers") {
+      if (user.rank === "Capt") {
+        navigate("/menu");
+      }
+
+      else{
+        navigate("/officer-menu");
+      }
     } 
     else {
       navigate("/");

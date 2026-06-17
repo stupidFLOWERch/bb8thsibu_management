@@ -33,19 +33,12 @@ function Login() {
         })
       );
 
-      if (ranking.role === "Boys"){
-        if (ranking.rank === "Pte"){
-          navigate("/menu");
-        }
-
-        else {
-          navigate("/nco-menu");
-        }
+      if (ranking.role === "Boys") {
+        navigate(ranking.rank === "Pte" ? "/menu" : "/nco-menu");
+      } else if (ranking.role === "Officers") {
+        navigate(ranking.rank === "Capt" ? "/menu" : "/officer-menu");
       }
       
-      
-      
-
     } catch (err) {
       setError(err.message || 'Login failed. Please try again.')
     } finally {

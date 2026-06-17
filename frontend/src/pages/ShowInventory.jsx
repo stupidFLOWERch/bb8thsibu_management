@@ -2,7 +2,8 @@ import { useEffect, useState } from "react";
 import TopBar from '../components/TopBar';
 import InventoryCard from '../components/InventoryCard';
 import '../styles/ShowInventory.css'
-import { showInventory, orderInventory } from '../api/inventory';
+import { showInventory } from '../api/inventory';
+import { orderInventory } from '../api/order';
 
 function ShowInventory() {
   const [items, setItems] = useState([]);

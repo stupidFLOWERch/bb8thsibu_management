@@ -18,11 +18,17 @@ async function request(path, options = {}) {
   return data
 }
 
-// GET inventory
-export function showInventory() {
-    return request('/api/inventory/show-inventory', {
-      method: 'GET',
+export function orderInventory(orderData) {
+    return request('/api/order/order-inventory', {
+      method: 'POST',
+      body: JSON.stringify(orderData),
     });
   }
 
+export function getOrderHistory() {
+  return request('/api/order/history');
+}
 
+export function getOrderDetails(orderId) {
+  return request(`/api/order/details/${orderId}`);
+}
