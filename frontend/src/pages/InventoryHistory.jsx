@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import TopBar from "../components/TopBar";
-import { getOrderHistory, getOrderDetails } from "../api/order";
+import { getOrderHistory, getOrderDetails, completeOrder } from "../api/order";
 import "../styles/InventoryHistory.css";
+import { checkStock, decreaseStock } from "../api/inventory";
 
 function InventoryHistory() {
   const [orders, setOrders] = useState([]);
@@ -33,6 +34,37 @@ function InventoryHistory() {
       setDetails(data);
     } catch (err) {
       console.error(err);
+    }
+  };
+
+  const handleCompleteOrder = async () => {
+    try {
+      const res = await checkStock(selectedOrder,);
+      if (!res.valid) {
+        alert(res.message || "Insufficient stock");
+        return; // ❗必须 stop
+      }
+
+      const orderItems = details.map(item => ({
+        items: item.Items,
+        qty: item.Quantity
+      }));
+
+      await completeOrder(selectedOrder);
+      await decreaseStock(orderItems);
+
+      setOrders((prev) =>
+        prev.map((order) =>
+          order.id === selectedOrder
+            ? { ...order, status: "Completed" }
+            : order
+        )
+      );
+      alert("Order completed!");
+
+    }catch (err) {
+      console.error(err);
+      alert("Failed to complete order.");
     }
   };
 
@@ -94,6 +126,14 @@ function InventoryHistory() {
               ))}
             </tbody>
           </table>
+          <div className="details-actions">
+            <button
+              className="complete-btn"
+              onClick={handleCompleteOrder}
+            >
+              Complete Order
+            </button>
+          </div>
         </div>
       )}
     </div>

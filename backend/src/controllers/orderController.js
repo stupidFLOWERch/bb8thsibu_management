@@ -1,4 +1,4 @@
-const { createOrder, createOrderItem, getOrderHistory, getOrderDetails } = require("../models/orderModel");
+const { createOrder, createOrderItem, getOrderHistory, getOrderDetails, updateOrder } = require("../models/orderModel");
 const { getAllInventory} = require("../models/inventoryModel");
 
 
@@ -56,16 +56,22 @@ async function showOrderDetails(req, res) {
   res.json(data);
 }
 
-// async function showOrderDetails(req, res) {
-//   const data = await getOrderHistory();
-  
-//   const formatted = data.map(order=> ({
-//     id: order.Order_id,
-//     status: order.Status,
-//     time: order.CreatedAt,
-//   }));
-  
-//   res.json(formatted);
-// }
+async function completeOrder(req, res) {
+  try {
+      const { orderId } = req.body;
 
-  module.exports = { placeOrder, listOrderHistory, showOrderDetails };
+      await updateOrder(orderId);
+
+      res.json({
+          success: true
+      });
+  } catch (err) {
+      console.error(err);
+      res.status(500).json({
+          message: err.message
+      });
+  }
+}
+
+
+  module.exports = { placeOrder, listOrderHistory, showOrderDetails, completeOrder };

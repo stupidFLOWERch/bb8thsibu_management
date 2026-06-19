@@ -1,4 +1,5 @@
-const { getAllInventory } = require("../models/inventoryModel");
+const { getAllInventory, decreaseInventoryByName } = require("../models/inventoryModel");
+const { getOrderDetails } = require("../models/orderModel");
 
 async function listInventory(req, res) {
   const data = await getAllInventory();
@@ -13,4 +14,49 @@ async function listInventory(req, res) {
   res.json(formatted);
 }
 
-  module.exports = { listInventory};
+async function checkInventory(req, res) {
+  try {
+      const { orderId } = req.body;
+
+      const items = await getOrderDetails(orderId);
+
+      for (const item of items) {
+          if (item.Numbers < item.Quantity) {
+              return res.json({
+                  valid: false,
+                  message: `${item.Items} insufficient stock`
+              });
+          }
+      }
+
+      return res.json({
+          valid: true
+      });
+
+  } catch (err) {
+      res.status(500).json({
+          valid: false,
+          message: err.message
+      });
+  }
+}
+
+async function decreaseInventory(req, res) {
+  const { orderItems } = req.body;
+
+  try {
+    await decreaseInventoryByName(orderItems);
+
+    return res.json({
+      success: true,
+      message: "Inventory updated"
+    });
+
+  } catch (err) {
+    return res.status(500).json({
+      success: false,
+      message: err.message
+    });
+  }
+}
+  module.exports = { listInventory, checkInventory, decreaseInventory};

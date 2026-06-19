@@ -1,11 +1,20 @@
 const { sql } = require("../db");
 
-async function getAllMembers() {
+async function getBoysMembers() {
     const request = new sql.Request();
 
     const result = await request
         .query(`
-            SELECT * FROM Members
+            SELECT 
+                m.First_name,
+                m.Last_name,
+                m.Id,
+                m.Squad_id,
+                r.Role
+            FROM Members m
+            JOIN Rankings r
+                on m.Ranking_id = r.Id
+            WHERE r.Role = 'Boys'
         `);
 
     return result.recordset;
@@ -24,4 +33,4 @@ async function takeAttendance(memberId, status) {
 }
 
 
-module.exports = { getAllMembers, takeAttendance };
+module.exports = { getBoysMembers, takeAttendance };

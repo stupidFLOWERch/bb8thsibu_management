@@ -88,3 +88,23 @@
     border-radius: 10px;
     box-shadow: 0 2px 10px rgba(0,0,0,0.08);
   }
+
+  .details-actions {
+    margin-top: 20px;
+    text-align: right;
+  }
+  
+  .complete-btn {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 10px 22px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: bold;
+  }
+  
+  .complete-btn:hover {
+    background-color: #218838;
+  }

@@ -20,9 +20,23 @@ async function request(path, options = {}) {
 
 // GET inventory
 export function showInventory() {
-    return request('/api/inventory/show-inventory', {
-      method: 'GET',
-    });
-  }
+  return request('/api/inventory/show-inventory', {
+    method: 'GET',
+  });
+}
+
+export function checkStock(orderId) {
+  return request("/api/inventory/check", {
+    method: "POST",
+    body: JSON.stringify({ orderId })
+  });
+}
+
+export function decreaseStock(orderItems) {
+  return request("/api/inventory/decrease", {
+    method: "POST",
+    body: JSON.stringify({ orderItems })
+  });
+}
 
 

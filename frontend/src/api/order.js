@@ -32,3 +32,10 @@ export function getOrderHistory() {
 export function getOrderDetails(orderId) {
   return request(`/api/order/details/${orderId}`);
 }
+
+export function completeOrder(orderId) {
+  return request("/api/order/completed", {
+    method: "POST",
+    body: JSON.stringify({ orderId }),
+  });
+}

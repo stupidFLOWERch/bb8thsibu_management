@@ -1,25 +1,24 @@
-const { getAllMembers, takeAttendance } = require("../models/attendanceModel");
+const { getBoysMembers, takeAttendance } = require("../models/attendanceModel");
 
 async function showMemberBySquad(req, res) {
     try {
-        const members = await getAllMembers(); 
+        const members = await getBoysMembers(); 
 
         const grouped = members.reduce((acc, row) => {
-            const key = row.Squad_id;
-
-            if (!acc[key]) {
-                acc[key] = [];
-            }
-
-            acc[key].push({
-                id: row.Id,
-                firstName: row.First_name,
-                lastName: row.Last_name,
-                email: row.Email
-            });
-
-            return acc;
-        }, {});
+          const key = row.Squad_id ?? "no_squad";
+      
+          if (!acc[key]) {
+              acc[key] = [];
+          }
+      
+          acc[key].push({
+              id: row.Id,
+              firstName: row.First_name,
+              lastName: row.Last_name
+          });
+      
+          return acc;
+      }, {});
 
         return res.json(grouped); // return grouped data
 

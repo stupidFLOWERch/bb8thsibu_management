@@ -11,17 +11,27 @@ async function getAllInventory() {
     return result.recordset;
 }
 
-// async function decreaseStock(orderItem.itemId, orderItem.qty) {
-//     const request = new sql.Request();
+async function decreaseInventoryByName(orderItems) {
 
-//     await request
-//         .input("userId", sql.NVarChar, userId)
-//         .input("items", sql.NVarChar, items)
-//         .input("number", sql.NVarChar, number)
-//         .query(`
-//             INSERT INTO OrderHistory (User_id, Items, Quantity)
-//             VALUES (@userId, @items, @number)
-//         `);
-// }
+    for (const item of orderItems) {
 
-module.exports = { getAllInventory };
+        const request = new sql.Request(); // ✔️ MUST move inside loop
+
+        const result = await request
+            .input("items", sql.NVarChar, item.items)
+            .input("qty", sql.Int, item.qty)
+            .query(`
+                UPDATE Inventories
+                SET Numbers = Numbers - @qty
+                WHERE Items = @items
+                  AND Numbers >= @qty
+            `);
+
+        if (result.rowsAffected[0] === 0) {
+            throw new Error(`Not enough stock for ${item.items}`);
+        }
+    }
+}
+
+
+module.exports = { getAllInventory, decreaseInventoryByName };

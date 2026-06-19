@@ -40,6 +40,7 @@ async function createOrder(userId) {
         FROM OrderHistory oh
         Join Users u
           ON oh.User_id = u.Id
+          WHERE oh.Status = 'Pending'
       `);
       
       return result.recordset;
@@ -55,7 +56,8 @@ async function createOrder(userId) {
           od.OrderDetail_id,
           od.Order_id,
           od.Quantity,
-          i.Items
+          i.Items,
+          i.Numbers
         FROM OrderDetails od
         JOIN Inventories i 
           ON od.Item_id = i.Id
@@ -64,5 +66,18 @@ async function createOrder(userId) {
         
       return result.recordset;
     }
+  
+
+  async function updateOrder(orderId) {
+    const request = new sql.Request();
     
-module.exports = { createOrder, createOrderItem, getOrderHistory, getOrderDetails };
+    await request
+    .input("orderId", sql.Int, orderId)
+      .query(`
+            UPDATE OrderHistory
+            SET Status = 'Completed'
+            WHERE Order_id = @orderId
+      `);
+  }
+
+module.exports = { createOrder, createOrderItem, getOrderHistory, getOrderDetails, updateOrder };
