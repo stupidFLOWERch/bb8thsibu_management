@@ -10,6 +10,7 @@ import MainMenu_Officer from "./pages/MainMenu_Officer.jsx";
 import ShowInventory from "./pages/ShowInventory.jsx";
 import Attendance from "./pages/Attendance.jsx";
 import InventoryHistory from "./pages/InventoryHistory.jsx";
+import CheckAttendance from "./pages/CheckAttendace.jsx";
 
 import AuthLayout from "./layouts/AuthLayout"
 import AppLayout from "./layouts/AppLayout"
@@ -38,6 +39,8 @@ function App() {
         <Route path="/attendance" element={<AppLayout><Attendance /></AppLayout>} />
 
         <Route path="/inventory-history" element={<AppLayout><InventoryHistory /></AppLayout>} />
+
+        <Route path="/check-attendance" element={<AppLayout><CheckAttendance /></AppLayout>} />
 
       </Routes>
     </BrowserRouter>

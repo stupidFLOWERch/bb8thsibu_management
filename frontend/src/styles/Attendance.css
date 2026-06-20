@@ -98,3 +98,53 @@
   margin-top: 24px;
 }
 
+.date-box {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+/* input date 主体 */
+.date-box input[type="date"] {
+  padding: 10px 12px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 14px;
+  outline: none;
+  background-color: #fff;
+  transition: 0.2s ease;
+}
+
+/* hover */
+.date-box input[type="date"]:hover {
+  border-color: #999;
+}
+
+/* focus */
+.date-box input[type="date"]:focus {
+  border-color: #4a90e2;
+  box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.15);
+}
+
+/* search button */
+.date-box button {
+  padding: 10px 16px;
+  border: none;
+  border-radius: 8px;
+  background-color: #4a90e2;
+  color: white;
+  font-size: 14px;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+/* hover button */
+.date-box button:hover {
+  background-color: #3a7bd5;
+}
+
+/* active click */
+.date-box button:active {
+  transform: scale(0.98);
+}

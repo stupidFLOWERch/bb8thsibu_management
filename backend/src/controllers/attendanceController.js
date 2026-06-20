@@ -1,4 +1,4 @@
-const { getBoysMembers, takeAttendance } = require("../models/attendanceModel");
+const { getBoysMembers, takeAttendance, getAttendanceByDate } = require("../models/attendanceModel");
 
 async function showMemberBySquad(req, res) {
     try {
@@ -48,4 +48,34 @@ async function submitAttendance(req, res) {
     }
   }
 
-module.exports = { showMemberBySquad, submitAttendance};
+  async function checkAttendance(req, res) {
+    try {
+      const {date}  = req.body;
+      const members = await getAttendanceByDate(date);
+
+      const grouped = members.reduce((acc, row) => {
+        const key = row.Squad_id ?? "no_squad";
+    
+        if (!acc[key]) {
+            acc[key] = [];
+        }
+    
+        acc[key].push({
+            id: row.Id,
+            firstName: row.First_name,
+            lastName: row.Last_name,
+            status: row.Status,
+            squad: row.Squad_id
+        });
+    
+        return acc;
+    }, {});
+
+      return res.json(grouped); // return grouped data
+
+    } catch (err) {
+        return res.status(500).json({ error: err.message });
+    }
+}
+
+module.exports = { showMemberBySquad, submitAttendance, checkAttendance};

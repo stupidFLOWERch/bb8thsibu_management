@@ -31,13 +31,13 @@ function MainMenu_Officer() {
         <MenuCard
           icon={FaClipboardList}
           title="Check Attendance"
-          onClick={() => navigate("/attendance")}
+          onClick={() => navigate("/check-attendance")}
         />
 
         <MenuCard
           icon={FaUserEdit}
           title="Update Member"
-          onClick={() => navigate("/attendance")}
+          onClick={() => navigate("/check-attendance")}
         />
       </div>
     </div>

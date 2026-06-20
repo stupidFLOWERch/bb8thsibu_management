@@ -25,9 +25,17 @@ export function showMemberBySquad() {
     });
   }
 
-  export function submitAttendance(payload) {
-    return request('/api/attendance/submit', {
-      method: 'POST',
-      body: JSON.stringify(payload)
-    });
-  }
+export function submitAttendance(payload) {
+  return request('/api/attendance/submit', {
+    method: 'POST',
+    body: JSON.stringify(payload)
+  });
+}
+
+  
+export function checkAttendance(date) {
+  return request('/api/attendance/check', {
+    method: 'POST',
+    body: JSON.stringify({ date })
+  });
+}

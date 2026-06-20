@@ -32,5 +32,25 @@ async function takeAttendance(memberId, status) {
         `);
 }
 
+async function getAttendanceByDate(date) {
+    const request = new sql.Request();
 
-module.exports = { getBoysMembers, takeAttendance };
+    const result =await request
+        .input("date", sql.Date, date)
+        .query(`
+            SELECT 
+                m.First_name,
+                m.Last_name,
+                m.Id,
+                m.Squad_id,
+                a.Attendance_date,
+                a.Status
+            FROM Members m
+            JOIN Attendance a
+                on m.Id = a.Member_id
+            WHERE a.Attendance_date = @date
+        `);
+    return result.recordset;
+}
+
+module.exports = { getBoysMembers, takeAttendance, getAttendanceByDate };
