@@ -1,8 +1,8 @@
-const { getAllMembers, getRankingIdByEmail, getRankingByRankingId } = require("../models/memberModel");
+const { getBoysList, getRankingIdByEmail, getRankingByRankingId, getMemberById, updateMemberById } = require("../models/memberModel");
 
-async function listMembers(_req, res) {
+async function listBoys(_req, res) {
     try {
-        const members = await getAllMembers();
+        const members = await getBoysList();
         res.json(members);
     } catch (err) {
         res.status(500).json({ error: err.message });
@@ -41,4 +41,27 @@ async function getMemberRanking(req, res) {
     }
 }
 
-module.exports = { listMembers, getMemberRanking };
+async function getMemberInfo(req, res) {
+    try {
+        const { id } = req.body;
+        const info = await getMemberById(id);
+        res.json(info);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+}
+
+async function updateMemberInfo(req, res) {
+    try {
+        const { id, First_name, Last_name, Telephone, Ranks, Email, Squad_id } = req.body;
+        await updateMemberById(id, First_name, Last_name, Telephone, Ranks, Email, Squad_id);
+        
+        return res.json({
+            success: true,
+            message: "Updated successfully"
+          });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+}
+module.exports = { listBoys, getMemberRanking, getMemberInfo, updateMemberInfo };

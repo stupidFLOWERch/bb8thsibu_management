@@ -37,7 +37,7 @@ function MainMenu_Officer() {
         <MenuCard
           icon={FaUserEdit}
           title="Update Member"
-          onClick={() => navigate("/check-attendance")}
+          onClick={() => navigate("/update-member")}
         />
       </div>
     </div>

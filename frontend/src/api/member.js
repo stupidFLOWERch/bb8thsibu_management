@@ -18,10 +18,33 @@ async function request(path, options = {}) {
   return data
 }
 
+
+export function listBoys() {
+  return request('/api/members/listBoys', {
+    method: 'GET',
+  });
+}
+
 export function getMemberRanking(email) {
     return request('/api/members/get-rank', {
       method: 'POST',
       body: JSON.stringify({ email }),
     });
   }
-  
+
+export function getMemberInfo(id) {
+  return request('/api/members/get-info', {
+    method: 'POST',
+    body: JSON.stringify({ id }),
+  });
+}
+
+export function updateMemberInfo(id, formdata) {
+  return request('/api/members/update', {
+    method: 'POST',
+    body: JSON.stringify({
+      id,
+      ...formdata
+    }),
+  });
+}
