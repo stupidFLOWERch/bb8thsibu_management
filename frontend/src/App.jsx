@@ -46,6 +46,7 @@ function App() {
         <Route path="/check-attendance" element={<AppLayout><CheckAttendance /></AppLayout>} />
 
         <Route path="/update-member" element={<AppLayout><UpdateMember /></AppLayout>} />
+
       </Routes>
     </BrowserRouter>
   );
