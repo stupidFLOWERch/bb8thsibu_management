@@ -12,6 +12,7 @@ const memberRoutes = require("./routes/memberRoutes");
 const inventoryRoutes = require("./routes/inventoryRoutes");
 const orderRoutes = require("./routes/orderRoutes");
 const attendanceRoutes = require("./routes/attendanceRoutes");
+const notificationRoutes = require("./routes/notificationRoutes");
 
 const app = express();
 const PORT = 5000;
@@ -28,6 +29,7 @@ app.use("/api/members", memberRoutes);
 app.use("/api/inventory", inventoryRoutes)
 app.use("/api/order", orderRoutes)
 app.use("/api/attendance", attendanceRoutes)
+app.use("/api/notification", notificationRoutes)
 
 async function start() {
     try {

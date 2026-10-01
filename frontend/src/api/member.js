@@ -40,11 +40,10 @@ export function getMemberInfo(id) {
 }
 
 export function updateMemberInfo(id, formdata) {
-  return request('/api/members/update', {
-    method: 'POST',
-    body: JSON.stringify({
-      id,
-      ...formdata
-    }),
+  return request(`/api/members/${id}`, {
+    method: 'PUT',
+    body: JSON.stringify(
+      formdata
+    ),
   });
 }

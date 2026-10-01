@@ -8,12 +8,14 @@ async function signup(req, res) {
     const { firstName, lastName, telephone, email, password } = req.body;
 
     if (!firstName || !lastName || !telephone || !email || !password) {
+        // 400 Bad Request
         return res.status(400).json({ error: "All fields are required." });
     }
 
     try {
         const member = await findMember(firstName, lastName, telephone);
         if (!member) {
+            // 403 Forbidden (Not allowed to signup)
             return res.status(403).json({
                 error: "You are not in member list",
             });
@@ -21,46 +23,55 @@ async function signup(req, res) {
 
         const existing = await findUserByEmail(email);
         if (existing) {
+            // 409 Conflict (Cannot create)
             return res.status(409).json({ 
                 error: "User already exists"});
         }
 
         await createUser(firstName, lastName, email, password);
-
+        // 201 Created successfully
         return res.status(201).json({
             message: "Account created successfully.",
         });
     } catch (err) {
+        // 500 Internal Server Error
         return res.status(500).json({ error: err.message });
     }
 }
 
 async function login(req, res) {
-    const { email, password } = req.body;
+    try{
+        const { email, password } = req.body;
 
-    if (!email || !password) {
-        return res.status(400).json({ error: "Email and password are required." });
+        if (!email || !password) {
+            return res.status(400).json({ error: "Email and password are required." });
+        }
+        
+        const record = await getPasswordByEmail(email);
+
+        if(!record){
+            return res.status(401).json({
+                // 401 Unauthorized
+                error: "Invalid email or password"
+            });
+        }
+        
+        if (record.Passwords === password){
+            return res.json({
+                message: "Login successful.",
+                user: {
+                    userId: record.Id,
+                    email: record.Email
+                }
+            });
+        }
+
+        return res.status(401).json({ error: "Email and password does not match" });
+
+    } catch(err){
+        return res.status(500).jsonjson({ error: err.message });
     }
 
-    const record = await getPasswordByEmail(email);
-
-    if(!record){
-        return res.status(401).json({
-            error: "Invalid email or password"
-        });
-    }
-    
-    if (record.Passwords === password){
-        return res.json({
-            message: "Login successful.",
-            user: {
-                userId: record.Id,
-                email: record.Email
-            }
-        });
-    }
-
-    return res.status(401).json({ error: "Email and password does not match" });
 }
 
 async function forgotPassword(req, res) {
@@ -73,6 +84,7 @@ async function forgotPassword(req, res) {
 
     const existing = await findUserByEmail(email);
     if (!existing) {
+        // 200 Ok
         return res.status(200).json({
             message: "If the email exists, a reset link has been sent."
           });

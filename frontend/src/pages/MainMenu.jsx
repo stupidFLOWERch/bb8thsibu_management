@@ -12,7 +12,7 @@ function MainMenu() {
       <TopBar />
 
       <div className="menu-grid">
-        <MenuCard icon={FaBell} title="Notification" />
+        <MenuCard icon={FaBell} title="Notification" onClick={() => navigate("/notification")}/>
 
         <MenuCard icon={FaBoxOpen} title="Order Inventory" onClick={() => navigate("/inventory")}/>
       </div>

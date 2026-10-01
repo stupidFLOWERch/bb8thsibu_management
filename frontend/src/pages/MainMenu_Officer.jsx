@@ -20,6 +20,7 @@ function MainMenu_Officer() {
         <MenuCard
           icon={FaBell}
           title="Notification"
+          onClick={() => navigate("/notification")}
         />
 
         <MenuCard

@@ -53,7 +53,15 @@ async function getMemberInfo(req, res) {
 
 async function updateMemberInfo(req, res) {
     try {
-        const { id, First_name, Last_name, Telephone, Ranks, Email, Squad_id } = req.body;
+        const { id } = req.params;
+        const {
+            First_name,
+            Last_name,
+            Telephone,
+            Ranks,
+            Email,
+            Squad_id
+        } = req.body;
         await updateMemberById(id, First_name, Last_name, Telephone, Ranks, Email, Squad_id);
         
         return res.json({

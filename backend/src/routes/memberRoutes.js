@@ -6,6 +6,6 @@ const router = express.Router();
 router.get("/listBoys", listBoys);
 router.post("/get-rank", getMemberRanking);
 router.post("/get-info", getMemberInfo);
-router.post("/update", updateMemberInfo);
+router.put("/:id", updateMemberInfo);
 
 module.exports = router;
