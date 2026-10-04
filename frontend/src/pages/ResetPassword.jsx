@@ -21,7 +21,7 @@ function ResetPassword() {
     setIsSubmitting(true);
 
     try {
-      const res = await resetPassword({ token, password });
+      await resetPassword({ token, password });
 
       setMessage("Password reset successful. You can close this tab.");
 
@@ -47,7 +47,7 @@ function ResetPassword() {
         <Logo />
 
         <div className="auth-session">
-          <h2>Reset your password</h2>
+          <h2 className="page-title">Reset your password</h2>
 
           <p className="mb-3">
             Enter your new password below.

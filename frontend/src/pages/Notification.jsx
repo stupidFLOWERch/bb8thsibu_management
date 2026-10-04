@@ -23,6 +23,17 @@ function formatNotificationDate(value) {
   }).format(date);
 }
 
+function normalizeNotifications(data) {
+  return data.map((item) => ({
+    ...item,
+    notificationId: Number(item.notificationId ?? item.NotificationId ?? item.id),
+    category: item.category || "General",
+    audience: item.audience || "All members",
+    date: formatNotificationDate(item.created_at),
+    unread: Boolean(item.unread),
+  }));
+}
+
 function Notification() {
   const [currentUser] = useState(() => {
     try {
@@ -55,14 +66,7 @@ function Notification() {
       if (!userId) throw new Error("Please log in again to view notifications.");
       const data = await getNotifications(userId);
       if (!Array.isArray(data)) throw new Error("Unexpected response while loading notifications.");
-      setNotifications(data.map((item, index) => ({
-        ...item,
-        notificationId: Number(item.notificationId ?? item.NotificationId ?? item.id),
-        category: item.category || "General",
-        audience: item.audience || "All members",
-        date: formatNotificationDate(item.created_at),
-        unread: Boolean(item.unread),
-      })));
+      setNotifications(normalizeNotifications(data));
     } catch (error) {
       setLoadError(error.message || "Unable to load notifications.");
     } finally {
@@ -70,7 +74,29 @@ function Notification() {
     }
   }, [userId]);
 
-  useEffect(() => { loadNotifications(); }, [loadNotifications]);
+  useEffect(() => {
+    let active = true;
+    const request = userId
+      ? getNotifications(userId)
+      : Promise.reject(new Error("Please log in again to view notifications."));
+
+    request
+      .then((data) => {
+        if (!Array.isArray(data)) throw new Error("Unexpected response while loading notifications.");
+        if (active) {
+          setNotifications(normalizeNotifications(data));
+          setLoadError("");
+        }
+      })
+      .catch((error) => {
+        if (active) setLoadError(error.message || "Unable to load notifications.");
+      })
+      .finally(() => {
+        if (active) setLoading(false);
+      });
+
+    return () => { active = false; };
+  }, [userId]);
 
   const visibleNotifications = useMemo(() => notifications.filter((item) => {
     const matchesFilter = filter === "All" || (filter === "Unread" && item.unread);
@@ -127,12 +153,7 @@ function Notification() {
                         STAY IN THE LOOP
                     </span>
 
-                    <h1>Notifications</h1>
-
-                    <p>
-                        Announcements and updates for your unit,
-                        all in one place.
-                    </p>
+                    <h1 className="page-title">Notifications</h1>
                 </div>
 
                 {rank !== "PTE" && (

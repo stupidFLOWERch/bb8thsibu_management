@@ -11,6 +11,11 @@ function MainMenu() {
     <div className="menu-page">
       <TopBar />
 
+      <header className="app-page-heading">
+        <h1 className="page-title">Dashboard</h1>
+        <p className="page-description">Manage your company resources.</p>
+      </header>
+
       <div className="menu-grid">
         <MenuCard icon={FaBell} title="Notification" onClick={() => navigate("/notification")}/>
 

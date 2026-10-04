@@ -65,6 +65,11 @@ function Attendance() {
     <div className="menu-page">
       <TopBar />
 
+      <header className="app-page-heading">
+        <h1 className="page-title">Take Attendance</h1>
+        <p className="page-description">Record attendance for each squad.</p>
+      </header>
+
       <div className="attendance-container">
         {Object.keys(data).map((squadId) => (
           <div key={squadId} className="squad-card">

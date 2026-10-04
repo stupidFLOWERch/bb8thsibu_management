@@ -46,7 +46,7 @@ function ForgotPassword() {
         <Logo />
 
         <div className="auth-session">
-          <h2>Forgot your password? </h2>
+          <h2 className="page-title">Forgot your password?</h2>
 
           <p className="mb-3">
             Enter your email address and we'll send you a link to reset password.

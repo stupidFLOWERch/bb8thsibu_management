@@ -75,7 +75,8 @@ async function getMemberById(id) {
                 m.Telephone,
                 m.Email,
                 m.Squad_id,
-                r.Ranks
+                r.Ranks,
+                r.Role
             FROM Members m
             JOIN Rankings r
                 on m.Ranking_id = r.Id
@@ -109,4 +110,22 @@ async function updateMemberById(id, First_name, Last_name, Telephone, Ranks, Ema
         `);
 }
 
-module.exports = { findMember, getBoysList, getRankingIdByEmail, getRankingByRankingId, getMemberById, updateMemberById };
+async function getOfficersList() {
+    const request = new sql.Request();
+
+    const result = await request
+        .query(`
+            SELECT 
+                m.Id,
+                m.First_name,
+                m.Last_name
+            FROM Members m
+            JOIN Rankings r
+                on m.Ranking_id = r.Id
+            WHERE r.Role = 'Officers'
+        `);
+
+    return result.recordset;
+}
+
+module.exports = { findMember, getBoysList, getRankingIdByEmail, getRankingByRankingId, getMemberById, updateMemberById, getOfficersList };

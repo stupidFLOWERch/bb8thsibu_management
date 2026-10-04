@@ -6,17 +6,23 @@ function MemberForm({
   selectedMember,
   onChange,
   onSave,
-  submitting
+  submitting,
+  memberType
 }) {
   return (
     <div className="member-form">
-
+      
       {selectedMember ? (
         <h3 className="editing-title">
-          Editing: {selectedMember.First_name}
+          Editing {selectedMember.Role === "Officers" ? "Officer" : "Member"}:{" "}
+          {selectedMember.First_name}
         </h3>
       ) : (
-        <h3>Select a member</h3>
+        <h3>
+          {memberType === "officer"
+            ? "Select an officer"
+            : "Select a member"}
+        </h3>
       )}
 
       <div className="form-group">
@@ -73,6 +79,7 @@ function MemberForm({
 
       <div className="form-group">
         <label>Rank</label>
+
         <select
           name="Ranks"
           value={formData.Ranks}
@@ -80,11 +87,27 @@ function MemberForm({
           disabled={!selectedMember}
         >
           <option value="">Select Rank</option>
-          <option value="Pte">Pte</option>
-          <option value="Lcpl">Lcpl</option>
-          <option value="Cpl">Cpl</option>
-          <option value="Sgt">Sgt</option>
-          <option value="Ssgt">Ssgt</option>
+
+          {selectedMember?.Role === "Boys" && (
+            <>
+              <option value="Pte">Pte</option>
+              <option value="Lcpl">Lcpl</option>
+              <option value="Cpl">Cpl</option>
+              <option value="Sgt">Sgt</option>
+              <option value="Ssgt">Ssgt</option>
+            </>
+          )}
+
+          {selectedMember?.Role === "Officers" && (
+            <>
+              <option value="Helper">Helper</option>
+              <option value="W/O">W/O</option>
+              <option value="Lt.">Lt.</option>
+              <option value="Capt.">Capt.</option>
+              <option value="H/Capt.">H/Capt.</option>
+              <option value="Chap.">Chap.</option>
+            </>
+          )}
         </select>
       </div>
 

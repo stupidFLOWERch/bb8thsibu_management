@@ -47,3 +47,9 @@ export function updateMemberInfo(id, formdata) {
     ),
   });
 }
+
+export function listOfficers() {
+  return request('/api/members/listOfficers', {
+    method: 'GET',
+  });
+}

@@ -12,6 +12,7 @@ import Attendance from "./pages/Attendance.jsx";
 import InventoryHistory from "./pages/InventoryHistory.jsx";
 import CheckAttendance from "./pages/CheckAttendace.jsx";
 import UpdateMember from "./pages/UpdateMember.jsx";
+import UpdateOfficer from "./pages/UpdateOfficer.jsx";
 import Notification from "./pages/Notification.jsx";
 
 import AuthLayout from "./layouts/AuthLayout"
@@ -47,6 +48,8 @@ function App() {
         <Route path="/check-attendance" element={<AppLayout><CheckAttendance /></AppLayout>} />
 
         <Route path="/update-member" element={<AppLayout><UpdateMember /></AppLayout>} />
+
+        <Route path="/update-officer" element={<AppLayout><UpdateOfficer /></AppLayout>} />
 
         <Route path="/notification" element={<AppLayout><Notification /></AppLayout>} />
 

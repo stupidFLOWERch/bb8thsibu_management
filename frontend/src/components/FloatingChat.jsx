@@ -33,7 +33,7 @@ function FloatingChat() {
         };
     
         loadWelcomeMessage();
-    }, []);
+    }, [sessionId]);
 
     useEffect(() => {
         scrollToBottom();
@@ -65,6 +65,7 @@ function FloatingChat() {
                 },
             ]);
         } catch (err) {
+            console.error(err);
             setMessages(prev => [
                 ...prev,
                 {

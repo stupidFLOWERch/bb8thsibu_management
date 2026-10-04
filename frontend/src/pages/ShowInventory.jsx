@@ -7,25 +7,25 @@ import { orderInventory } from '../api/order';
 
 function ShowInventory() {
   const [items, setItems] = useState([]);
-
-  useEffect(() => {
-    fetchInventory();
-  }, []);
-
+  
   const fetchInventory = async () => {
     try {
-      const data = await showInventory();
+        const data = await showInventory();
 
-      const formatted = data.map(item => ({
-        ...item,
-        orderQty: 0
-      }));
+        const formatted = data.map(item => ({
+            ...item,
+            orderQty: 0
+        }));
 
-      setItems(formatted);
+        setItems(formatted);
     } catch (err) {
-      console.error("Failed to fetch inventory:", err);
+        console.error("Failed to fetch inventory:", err);
     }
-  };
+};
+
+useEffect(() => {
+    fetchInventory();
+}, []);
 
   const updateQty = (id, type) => {
     setItems(prev =>
@@ -85,6 +85,11 @@ function ShowInventory() {
   return (
     <div className="menu-page">
       <TopBar />
+
+      <header className="app-page-heading">
+        <h1 className="page-title">Order Inventory</h1>
+        <p className="page-description">Select items and quantities to place an order.</p>
+      </header>
 
       <div className="inventory-grid">
         {items.map(item => (

@@ -10,7 +10,6 @@
 .notification-content { width: min(1040px, 100%); margin: 0 auto; }
 .notification-heading { display: flex; justify-content: space-between; align-items: center; gap: 24px; margin: 34px 0 26px; }
 .notification-eyebrow { display: block; color: #71799a; font-size: 10px; letter-spacing: 1.6px; font-weight: 700; margin-bottom: 7px; }
-.notification-heading h1 { margin: 0 0 6px; color: #202331; font-size: 30px; letter-spacing: -.7px; font-weight: 700; }
 .notification-heading p { color: #81869a; font-size: 14px; }
 .notification-compose-btn { display: inline-flex; justify-content: center; align-items: center; gap: 9px; padding: 12px 17px; color: white; background: #3855a5; border: 0; border-radius: 9px; font-size: 13px; font-weight: 700; cursor: pointer; box-shadow: 0 5px 12px #3855a526; transition: background .18s, transform .18s; }
 .notification-compose-btn:hover { background: #2e478f; transform: translateY(-1px); }
@@ -84,7 +83,6 @@
 @media (max-width: 640px) {
   .notification-page { padding: 14px 14px 32px; }
   .notification-heading { align-items: flex-start; flex-direction: column; margin: 25px 0 20px; gap: 16px; }
-  .notification-heading h1 { font-size: 26px; }
   .notification-toolbar { align-items: stretch; flex-direction: column; padding: 0 16px 13px; gap: 12px; }
   .notification-tabs { height: 52px; gap: 22px; }
   .notification-search { width: auto; }

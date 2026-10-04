@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import TopBar from "../components/TopBar";
-import { listBoys, getMemberInfo, updateMemberInfo } from "../api/member";
+import { listOfficers, getMemberInfo, updateMemberInfo } from "../api/member";
 import MemberForm from "../components/MemberForm";
 import "../styles/UpdateMember.css";
 
-function UpdateMember() {
+function UpdateOfficer() {
   const [members, setMembers] = useState([]);
   const [selectedMember, setSelectedMember] = useState(null);
   const [submitting, setSubmitting] = useState(false);
@@ -58,9 +58,9 @@ function UpdateMember() {
     }
   };
   
-  const showMembers = async () => {
+  const showOfficers = async () => {
     try {
-      const data = await listBoys();
+      const data = await listOfficers();
       setMembers(data);
     } catch (err) {
       console.error(err);
@@ -87,7 +87,7 @@ function UpdateMember() {
 };
 
   useEffect(() => {
-    showMembers();
+    showOfficers();
   }, []);
 
   return (
@@ -95,8 +95,8 @@ function UpdateMember() {
       <TopBar />
   
       <header className="app-page-heading">
-        <h1 className="page-title">Update Member</h1>
-        <p className="page-description">Select a member to update their details.</p>
+        <h1 className="page-title">Update Officer</h1>
+        <p className="page-description">Select an officer to update their details.</p>
       </header>
       
       <div className="member-layout">
@@ -137,7 +137,7 @@ function UpdateMember() {
           onChange={handleChange}
           onSave={handleSave}
           submitting={submitting}
-          memberType="member"
+          memberType="officer"
         />
 
         </div>
@@ -146,4 +146,4 @@ function UpdateMember() {
   );
 }
 
-export default UpdateMember;
+export default UpdateOfficer;

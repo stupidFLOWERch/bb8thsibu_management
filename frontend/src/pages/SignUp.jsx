@@ -54,7 +54,7 @@ function SignUp() {
       <section id="center">
         <Logo />
         <div className="auth-session">
-        <h2>Create your account</h2>
+        <h2 className="page-title">Create your account</h2>
   
         {error && (
           <p className="auth-message auth-message--error">

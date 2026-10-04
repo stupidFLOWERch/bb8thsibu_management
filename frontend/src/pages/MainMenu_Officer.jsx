@@ -16,6 +16,11 @@ function MainMenu_Officer() {
     <div className="menu-page">
       <TopBar />
 
+      <header className="app-page-heading">
+        <h1 className="page-title">Dashboard</h1>
+        <p className="page-description">Manage members, orders, and attendance.</p>
+      </header>
+
       <div className="menu-grid">
         <MenuCard
           icon={FaBell}
@@ -39,6 +44,12 @@ function MainMenu_Officer() {
           icon={FaUserEdit}
           title="Update Member"
           onClick={() => navigate("/update-member")}
+        />
+
+        <MenuCard
+          icon={FaUserEdit}
+          title="Update Officer"
+          onClick={() => navigate("/update-officer")}
         />
       </div>
     </div>

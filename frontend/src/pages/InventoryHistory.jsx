@@ -72,7 +72,10 @@ function InventoryHistory() {
     <div className="menu-page">
       <TopBar />
 
-      <h2>Pending Order</h2>
+      <header className="app-page-heading">
+        <h1 className="page-title">Pending Orders</h1>
+        <p className="page-description">Review and complete inventory orders.</p>
+      </header>
 
       {/* ORDER TABLE */}
       <table>
