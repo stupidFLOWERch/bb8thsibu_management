@@ -31,7 +31,7 @@ describe("Notification API", () => {
             ],
         };
 
-        global.fetch = vi.fn().mockResolvedValue({
+        globalThis.fetch = vi.fn().mockResolvedValue({
             ok: true,
             json: async () => mockData,
         });
@@ -67,7 +67,7 @@ describe("Notification API", () => {
             message: "Notification created successfully",
         };
 
-        global.fetch = vi.fn().mockResolvedValue({
+        globalThis.fetch = vi.fn().mockResolvedValue({
             ok: true,
             json: async () => mockData,
         });
@@ -104,7 +104,7 @@ describe("Notification API", () => {
             message: "Notification marked as read",
         };
 
-        global.fetch = vi.fn().mockResolvedValue({
+        globalThis.fetch = vi.fn().mockResolvedValue({
             ok: true,
             json: async () => mockData,
         });
@@ -132,7 +132,7 @@ describe("Notification API", () => {
     });
 
     it("throws an error when the API request fails", async () => {
-        global.fetch = vi.fn().mockResolvedValue({
+        globalThis.fetch = vi.fn().mockResolvedValue({
             ok: false,
             json: async () => ({
                 error: "Notification not found",

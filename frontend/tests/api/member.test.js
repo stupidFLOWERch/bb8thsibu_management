@@ -30,7 +30,7 @@ describe("Members API", () => {
             ],
         };
 
-        global.fetch = vi.fn().mockResolvedValue({
+        globalThis.fetch = vi.fn().mockResolvedValue({
             ok: true,
             json: async () => mockData,
         });
@@ -57,7 +57,7 @@ describe("Members API", () => {
             rank: "Pte",
         };
 
-        global.fetch = vi.fn().mockResolvedValue({
+        globalThis.fetch = vi.fn().mockResolvedValue({
             ok: true,
             json: async () => mockData,
         });
@@ -91,7 +91,7 @@ describe("Members API", () => {
             rank: "Pte",
         };
 
-        global.fetch = vi.fn().mockResolvedValue({
+        globalThis.fetch = vi.fn().mockResolvedValue({
             ok: true,
             json: async () => mockData,
         });
@@ -130,7 +130,7 @@ describe("Members API", () => {
             message: "Member updated successfully",
         };
 
-        global.fetch = vi.fn().mockResolvedValue({
+        globalThis.fetch = vi.fn().mockResolvedValue({
             ok: true,
             json: async () => mockData,
         });
@@ -165,7 +165,7 @@ describe("Members API", () => {
             ],
         };
 
-        global.fetch = vi.fn().mockResolvedValue({
+        globalThis.fetch = vi.fn().mockResolvedValue({
             ok: true,
             json: async () => mockData,
         });
@@ -186,7 +186,7 @@ describe("Members API", () => {
     });
 
     it("throws an error when the API request fails", async () => {
-        global.fetch = vi.fn().mockResolvedValue({
+        globalThis.fetch = vi.fn().mockResolvedValue({
             ok: false,
             json: async () => ({
                 error: "Member not found",

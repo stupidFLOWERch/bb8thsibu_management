@@ -28,7 +28,7 @@ describe("Inventory API", () => {
             ],
         };
 
-        global.fetch = vi.fn().mockResolvedValue({
+        globalThis.fetch = vi.fn().mockResolvedValue({
             ok: true,
             json: async () => mockData,
         });
@@ -55,7 +55,7 @@ describe("Inventory API", () => {
             available: true,
         };
 
-        global.fetch = vi.fn().mockResolvedValue({
+        globalThis.fetch = vi.fn().mockResolvedValue({
             ok: true,
             json: async () => mockData,
         });
@@ -94,7 +94,7 @@ describe("Inventory API", () => {
             message: "Stock decreased successfully",
         };
 
-        global.fetch = vi.fn().mockResolvedValue({
+        globalThis.fetch = vi.fn().mockResolvedValue({
             ok: true,
             json: async () => mockData,
         });
@@ -118,7 +118,7 @@ describe("Inventory API", () => {
     });
 
     it("throws an error when the API request fails", async () => {
-        global.fetch = vi.fn().mockResolvedValue({
+        globalThis.fetch = vi.fn().mockResolvedValue({
             ok: false,
             json: async () => ({
                 error: "Insufficient stock",

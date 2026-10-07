@@ -21,7 +21,7 @@ describe("Attendance API", () => {
             ],
         };
 
-        global.fetch = vi.fn().mockResolvedValue({
+        globalThis.fetch = vi.fn().mockResolvedValue({
             ok: true,
             json: async () => mockData,
         });
@@ -52,7 +52,7 @@ describe("Attendance API", () => {
             message: "Attendance submitted successfully",
         };
 
-        global.fetch = vi.fn().mockResolvedValue({
+        globalThis.fetch = vi.fn().mockResolvedValue({
             ok: true,
             json: async () => mockData,
         });
@@ -78,7 +78,7 @@ describe("Attendance API", () => {
             exists: true,
         };
 
-        global.fetch = vi.fn().mockResolvedValue({
+        globalThis.fetch = vi.fn().mockResolvedValue({
             ok: true,
             json: async () => mockData,
         });
@@ -102,7 +102,7 @@ describe("Attendance API", () => {
     });
 
     it("throws an error when the API request fails", async () => {
-        global.fetch = vi.fn().mockResolvedValue({
+        globalThis.fetch = vi.fn().mockResolvedValue({
             ok: false,
             json: async () => ({
                 error: "Attendance already submitted",

@@ -16,7 +16,7 @@ describe("Chatbot API",()=>{
             answer: "The uniform policy requires members to wear the correct uniform.",
         };
 
-        global.fetch=vi.fn().mockResolvedValue({
+        globalThis.fetch=vi.fn().mockResolvedValue({
             ok: true,
             json: async()=> mockData,
         });
@@ -44,7 +44,7 @@ describe("Chatbot API",()=>{
 
     it("throws an error when the chatbot API fails", async () => {
 
-        global.fetch = vi.fn().mockResolvedValue({
+        globalThis.fetch = vi.fn().mockResolvedValue({
             ok: false,
             json: async () => ({
                 error: "Chatbot server error",

@@ -33,7 +33,7 @@ describe("Order API", () => {
             message: "Order created successfully",
         };
 
-        global.fetch = vi.fn().mockResolvedValue({
+        globalThis.fetch = vi.fn().mockResolvedValue({
             ok: true,
             json: async () => mockData,
         });
@@ -68,7 +68,7 @@ describe("Order API", () => {
             ],
         };
 
-        global.fetch = vi.fn().mockResolvedValue({
+        globalThis.fetch = vi.fn().mockResolvedValue({
             ok: true,
             json: async () => mockData,
         });
@@ -101,7 +101,7 @@ describe("Order API", () => {
             ],
         };
 
-        global.fetch = vi.fn().mockResolvedValue({
+        globalThis.fetch = vi.fn().mockResolvedValue({
             ok: true,
             json: async () => mockData,
         });
@@ -127,7 +127,7 @@ describe("Order API", () => {
             message: "Order completed successfully",
         };
 
-        global.fetch = vi.fn().mockResolvedValue({
+        globalThis.fetch = vi.fn().mockResolvedValue({
             ok: true,
             json: async () => mockData,
         });
@@ -151,7 +151,7 @@ describe("Order API", () => {
     });
 
     it("throws an error when the API request fails", async () => {
-        global.fetch = vi.fn().mockResolvedValue({
+        globalThis.fetch = vi.fn().mockResolvedValue({
             ok: false,
             json: async () => ({
                 error: "Order not found",

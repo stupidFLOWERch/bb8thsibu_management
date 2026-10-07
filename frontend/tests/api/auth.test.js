@@ -17,7 +17,7 @@ describe("Authentication API", () =>{
             status: "ok",
         };
     
-    global.fetch = vi.fn().mockResolvedValue({
+    globalThis.fetch = vi.fn().mockResolvedValue({
         ok: true,
         json: async()=> mockData,
     });
@@ -48,7 +48,7 @@ describe("Authentication API", () =>{
             message: "Signup successful",
         };
 
-        global.fetch= vi.fn().mockResolvedValue({
+        globalThis.fetch= vi.fn().mockResolvedValue({
             ok: true,
             json: async()=> mockData,
         });
@@ -80,7 +80,7 @@ describe("Authentication API", () =>{
             token: "fake-token"
         };
 
-        global.fetch = vi.fn().mockResolvedValue({
+        globalThis.fetch = vi.fn().mockResolvedValue({
             ok: true,
             json: async()=> mockData,
         });
@@ -109,7 +109,7 @@ describe("Authentication API", () =>{
             message: "Reset email sent",
         };
 
-        global.fetch = vi.fn().mockResolvedValue({
+        globalThis.fetch = vi.fn().mockResolvedValue({
             ok: true,
             json: async () => mockData,
         });
@@ -142,7 +142,7 @@ describe("Authentication API", () =>{
             message: "Password reset successful",
         };
 
-        global.fetch = vi.fn().mockResolvedValue({
+        globalThis.fetch = vi.fn().mockResolvedValue({
             ok: true,
             json: async () => mockData,
         });
@@ -166,7 +166,7 @@ describe("Authentication API", () =>{
 
     it("throws an error when the API request fails", async () => {
 
-        global.fetch = vi.fn().mockResolvedValue({
+        globalThis.fetch = vi.fn().mockResolvedValue({
             ok: false,
             json: async () => ({
                 error: "Invalid email or password",
