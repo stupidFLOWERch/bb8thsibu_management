@@ -26,8 +26,9 @@ function MemberForm({
       )}
 
       <div className="form-group">
-        <label>First Name</label>
+        <label htmlFor="first-name">First Name</label>
         <input
+          id="first-name"
           name="First_name"
           value={formData.First_name}
           onChange={onChange}
@@ -36,8 +37,9 @@ function MemberForm({
       </div>
 
       <div className="form-group">
-        <label>Last Name</label>
+        <label htmlFor="last-name">Last Name</label>
         <input
+          id="last-name"
           name="Last_name"
           value={formData.Last_name}
           onChange={onChange}
@@ -46,8 +48,9 @@ function MemberForm({
       </div>
 
       <div className="form-group">
-        <label>Email</label>
+        <label htmlFor="email">Email</label>
         <input
+          id="email"
           name="Email"
           value={formData.Email}
           onChange={onChange}
@@ -56,8 +59,9 @@ function MemberForm({
       </div>
 
       <div className="form-group">
-        <label>Telephone</label>
+        <label htmlFor="telephone">Telephone</label>
         <input
+          id="telephone"
           name="Telephone"
           value={formData.Telephone}
           onChange={onChange}
@@ -66,8 +70,9 @@ function MemberForm({
       </div>
 
       <div className="form-group">
-        <label>Squad</label>
+        <label htmlFor="squad">Squad</label>
         <input
+          id="squad"
           name="Squad_id"
           type="number"
           value={formData.Squad_id}
@@ -78,9 +83,10 @@ function MemberForm({
       </div>
 
       <div className="form-group">
-        <label>Rank</label>
+        <label htmlFor="rank">Rank</label>
 
         <select
+          id="rank"
           name="Ranks"
           value={formData.Ranks}
           onChange={onChange}

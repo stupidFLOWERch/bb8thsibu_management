@@ -29,6 +29,13 @@ function FloatingChat() {
                 ]);
             } catch (err) {
                 console.error(err);
+            
+                setMessages([
+                    {
+                        sender: "bot",
+                        text: "Server error",
+                    },
+                ]);
             }
         };
     
@@ -79,7 +86,11 @@ function FloatingChat() {
     return (
         <>
             {/* Floating Button */}
-            <button className="chat-fab" onClick={toggleChat}>
+            <button
+                className="chat-fab"
+                onClick={toggleChat}
+                aria-label={open ? "Close chat" : "Open chat"}
+            >
                 {open ? <FiX /> : <FiMessageCircle />}
             </button>
 

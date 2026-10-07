@@ -20,8 +20,9 @@ function HomeButton() {
       }
     } 
     else if (user.role === "Officers") {
-      if (user.rank === "Capt") {
-        navigate("/menu");
+      // TODO: add menu for captain in future
+      if (user.rank === "Capt.") {
+        navigate("/officer-menu");
       }
 
       else{
